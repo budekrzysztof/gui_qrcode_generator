@@ -30,6 +30,8 @@ class qr_generator:
         # create window
         self.root = tk.Tk()
         self.root.title("QR Code Generator")
+        self.root.resizable(0,0)
+
         self.canvas = tk.Canvas(self.root, height=600, width=800, bg="#ECE4DB")
         self.canvas.pack()
 
@@ -43,6 +45,7 @@ class qr_generator:
 
         # text input
         self.text_box = tk.Text(self.left_workspace, height=15, width=30)
+        self.text_box.pack(pady=29)
 
         # right side of content div
         self.right_workspace = tk.Frame(self.workspace, bg="#ECE4DB")
@@ -57,14 +60,11 @@ class qr_generator:
         # create download button
         self.download_button = tk.Button(self.right_workspace, height=3, width=30, text='Download',
                                         command=self.download_image)
-
         self.download_button.pack(side='left', padx=45)
 
         # create QR button
         self.button_commit = tk.Button(self.left_workspace, height=3, width=30, text='Generate',
                                     command=self.retrieve_input)
-
-        self.text_box.pack(pady=29)
         self.button_commit.pack(side='left', padx=45)
 
         # run root mainloop
