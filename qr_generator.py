@@ -1,4 +1,4 @@
-# 2021 Krzysztof Budek
+# 2022 Krzysztof Budek
 
 import tkinter as tk
 import qrcode
@@ -10,20 +10,25 @@ from tkinter.font import Font
 
 class qr_generator:
     def retrieve_input(self):
+        # get value from text input
         input_value = self.text_box.get("1.0", "end-1c")
 
+        # create qrcode and convert it into photo image object
         self.img = qrcode.make(input_value).resize((240, 240), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(self.img)
 
+        # replace currently displayed qr code into freshly generated one
         self.panel.configure(image=new_image)
         self.panel.image = new_image
 
     def download_image(self):
+        # ask for a path and a name for a file
         path = filedialog.asksaveasfile(mode='w', defaultextension=".jpg")
 
         if not path:
             return
 
+        # delete alpha layer and save
         self.img.convert('RGB').save(path)
 
     def __init__(self):
@@ -51,9 +56,11 @@ class qr_generator:
         self.right_workspace = tk.Frame(self.workspace, bg="#ECE4DB")
         self.right_workspace.place(relwidth=0.5, relheight=1, relx=0.5)
 
+        # default code
         self.img = (Image.open("image/frame.png")).resize((240, 240), Image.ANTIALIAS)
         new_image = ImageTk.PhotoImage(self.img)
 
+        # panel for qr code placement
         self.panel = tk.Label(self.right_workspace, image=new_image)
         self.panel.pack(side = "top", fill = "none", expand = "no", pady=29)
 
@@ -62,13 +69,13 @@ class qr_generator:
                                         command=self.download_image)
         self.download_button.pack(side='left', padx=45)
 
-        # create QR button
+        # create convert button
         self.button_commit = tk.Button(self.left_workspace, height=3, width=30, text='Generate',
                                     command=self.retrieve_input)
         self.button_commit.pack(side='left', padx=45)
 
-        # run root mainloop
+        # run mainloop
         self.root.mainloop()
 
-george = qr_generator()
+app = qr_generator()
 
