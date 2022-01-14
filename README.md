@@ -2,4 +2,4 @@
  python simple tkinter GUI QR code generator
  
  - converts given text input into qr code
- - download as .png into desired directory
+ - download as .jpg into desired directory
